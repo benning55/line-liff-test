@@ -39,6 +39,11 @@ async function main() {
   }
 
   getUserProfile();
+
+  if (!liff.isInClient()) {
+    btnLogIn.style.display = 'block';
+    btnLogOut.style.display = 'block';
+  }
 }
 
 async function getUserProfile() {
