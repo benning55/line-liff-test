@@ -47,11 +47,16 @@ async function main() {
       break;
   }
 
-  getUserProfile();
-
   if (!liff.isInClient()) {
-    btnLogIn.style.display = 'block';
-    btnLogOut.style.display = 'block';
+    if (liff.isLoggedIn()) {
+      btnLogIn.style.display = 'none';
+      btnLogOut.style.display = 'block';
+    } else {
+      btnLogIn.style.display = 'block';
+      btnLogOut.style.display = 'none';
+    }
+  } else {
+    getUserProfile();
   }
 }
 
