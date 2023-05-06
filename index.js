@@ -33,6 +33,25 @@ btnLogOut.onclick = () => {
   window.location.reload();
 };
 
+async function sendMsg() {
+  if (
+    liff.getContext().type !== 'none' &&
+    liff.getContext().type !== 'external'
+  ) {
+    await liff.sendMessages([
+      {
+        type: 'text',
+        text: 'This message was sent by sendMessages()',
+      },
+    ]);
+    alert('Message sent');
+  }
+}
+
+btnSend.onclick = () => {
+  sendMsg();
+};
+
 async function main() {
   // Initialize LIFF app)
   await liff.init({ liffId: '1661054358-OZej78ZR' });
@@ -56,7 +75,13 @@ async function main() {
       btnLogOut.style.display = 'none';
     }
   } else {
+    btnShare.style.display = 'block';
+    btnSend.style.display = 'block';
     getUserProfile();
+  }
+
+  if (liff.isInClient() && liff.getOS() === 'android') {
+    btnScanCode.style.display = 'block';
   }
 }
 
@@ -70,3 +95,26 @@ async function getUserProfile() {
 }
 
 main();
+
+async function shareMsg() {
+  await liff.shareTargetPicker([
+    {
+      type: 'image',
+      originalContentUrl: 'https://d.line-scdn.net/stf/line-lp/2016_en_02.jpg',
+      previewImageUrl: 'https://d.line-scdn.net/stf/line-lp/2016_en_02.jpg',
+    },
+  ]);
+}
+
+btnShare.onclick = () => {
+  shareMsg();
+};
+
+async function scanCode() {
+  const result = await liff.scanCode();
+  code.innerHTML = '<b>Code: </b>' + result.value;
+}
+
+btnScanCode.onclick = () => {
+  scanCode();
+};
