@@ -24,6 +24,15 @@ const statusMessage = document.getElementById('statusMessage');
 const code = document.getElementById('code');
 const friendShip = document.getElementById('friendShip');
 
+btnLogIn.onclick = () => {
+  liff.login();
+};
+
+btnLogOut.onclick = () => {
+  liff.logout();
+  window.location.reload();
+};
+
 async function main() {
   // Initialize LIFF app)
   await liff.init({ liffId: '1661054358-OZej78ZR' });
